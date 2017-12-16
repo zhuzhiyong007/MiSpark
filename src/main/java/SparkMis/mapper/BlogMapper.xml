@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SparkMaven.mysys.dao.IBlogDao">
+
+    <insert id="addBlog" parameterType="Blog"  useGeneratedKeys="true" keyProperty="id">
+        insert into t_Blog(title,content,owner) values(#{title},#{content},#{owner})
+    </insert>
+
+	<!-- 由mybatis自动配置 -->
+	<select id="selectBlog0" parameterType="int" resultType="Blog">  
+        select * from t_blog where id = #{id}  
+	</select>
+	
+	<!-- 手工配置结果集 -->
+	<resultMap type="Blog" id="BlogResult1">  
+        <id column="id" property="id"/>  
+        <result column="title" property="title"/>  
+        <result column="content" property="content"/>  
+        <result column="owner" property="owner"/>  
+    </resultMap>  
+    <select id="selectBlog1" parameterType="int" resultMap="BlogResult1">  
+        select * from t_blog where id = #{id}  
+    </select>
+    
+    <!-- 来自BlogMapper.xml文件 -->  
+    <resultMap type="Blog" id="BlogResult">  
+        <id column="id" property="id"/>  
+        <collection property="comments" select="selectCommentsByBlog" column="id" ofType="Comment"></collection>  
+    </resultMap>  
+  
+    <resultMap type="Comment" id="CommentResult">  
+        <association property="blog" javaType="Blog" column="blog" select="selectBlog"/>  
+    </resultMap>  
+  
+    <select id="selectBlog" parameterType="int" resultMap="BlogResult">  
+        select * from t_blog where id = #{id}  
+    </select>  
+  
+	<!--  通过Blog来查找Comment   -->  
+    <select id="selectCommentsByBlog" parameterType="int" resultMap="CommentResult">  
+        select * from t_Comment where blogid = #{blogId}  
+    </select>   
+</mapper>
