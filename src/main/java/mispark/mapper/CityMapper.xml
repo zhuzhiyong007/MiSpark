@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace=" mispark.dao.ICityDao">
+
+ <resultMap id="cityMap" type="City">
+      <id property="id" column="id" javaType="int"></id>
+      <result property="cityName" column="city_name" javaType="java.lang.String"/>
+      <result property="cityPwd" column="city_pwd" javaType="java.lang.String"/>
+  </resultMap>
+  
+    <insert id="addCity" parameterType="City"  useGeneratedKeys="true" keyProperty="id">
+        insert into citys(city_name,city_pwd) values(#{cityName},#{cityPwd})
+    </insert>
+    
+    <select id="findCityById" resultMap="cityMap" parameterType="int">
+        select * from citys where id=#{id}
+    </select>     
+    
+    <select id="findAll" resultMap="cityMap">
+        select * from citys
+    </select>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+</mapper>
