@@ -8,7 +8,7 @@
   <packaging>war</packaging>
 
   <name>sparkmis</name>
-  <url>http://maven.apache.org</url>
+  <url>http://zzy.org</url>
 
  
   <properties>

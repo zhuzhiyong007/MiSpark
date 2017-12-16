@@ -1,4 +1,4 @@
-package SparkMaven.mysys;
+package mispark;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
